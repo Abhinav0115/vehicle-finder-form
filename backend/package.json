@@ -15,11 +15,13 @@
     "keywords": [
         "vehicle",
         "rental",
-        "booking",
-        "nodejs",
-        "express"
+        "booking"
     ],
-    "author": "",
+    "author": "Abhinav Anand",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Abhinav0115/vehicle-finder-form/tree/main/backend"
+    },
     "license": "ISC",
     "dependencies": {
         "@prisma/client": "^5.0.0",
