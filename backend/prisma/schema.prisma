@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model VehicleType {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  wheels      Int       // 2 for bikes, 4 for cars
+  description String?
+  vehicles    Vehicle[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("vehicle_types")
+}
+
+model Vehicle {
+  id            Int         @id @default(autoincrement())
+  name          String
+  model         String
+  vehicleTypeId Int
+  vehicleType   VehicleType @relation(fields: [vehicleTypeId], references: [id])
+  bookings      Booking[]
+  isAvailable   Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("vehicles")
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  vehicleId Int
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("confirmed") // confirmed, cancelled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bookings")
+}
